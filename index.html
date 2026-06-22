@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>S S Textile GST Billing</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div>
+        <h1>S S TEXTILE</h1>
+        <p>GST Billing System</p>
+    </div>
+
+    <div class="top-actions">
+        <button id="newInvoiceBtn">New Invoice</button>
+        <button id="backupBtn">Backup</button>
+        <button id="restoreBtn">Restore</button>
+    </div>
+</header>
+
+<main class="layout">
+
+    <!-- LEFT PANEL -->
+
+    <section class="sidebar">
+
+        <div class="card">
+            <h3>Company Details</h3>
+
+            <p><strong>GSTIN:</strong> 24BRXPM6996G1ZT</p>
+
+            <p>
+                Plot No. 296-2-3B<br>
+                GIDC Umbergaon<br>
+                Valsad Gujarat
+            </p>
+
+            <p><strong>Bank:</strong> HDFC Bank</p>
+            <p><strong>A/C:</strong> 50200087857010</p>
+            <p><strong>IFSC:</strong> HDFC000095</p>
+        </div>
+
+        <div class="card">
+
+            <h3>Customer Details</h3>
+
+            <input id="customerName" placeholder="Customer Name">
+
+            <input id="customerMobile" placeholder="Mobile">
+
+            <input id="customerGST" placeholder="GST Number">
+
+            <textarea
+                id="customerAddress"
+                rows="4"
+                placeholder="Address"></textarea>
+
+            <button id="saveCustomerBtn">
+                Save Customer
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Invoice Details</h3>
+
+            <input id="invoiceNo" readonly>
+
+            <input id="invoiceDate" type="date">
+
+            <input
+                id="paymentTerms"
+                value="15 DAYS CREDIT">
+
+            <input
+                id="deliveryType"
+                value="DOOR">
+
+        </div>
+
+    </section>
+
+    <!-- RIGHT PANEL -->
+
+    <section class="content">
+
+        <div class="card">
+
+            <h3>Add Item</h3>
+
+            <input
+                id="itemDescription"
+                placeholder="Description">
+
+            <div class="grid2">
+
+                <input
+                    id="itemHSN"
+                    placeholder="HSN"
+                    value="9988">
+
+                <input
+                    id="itemQty"
+                    type="number"
+                    placeholder="Qty">
+
+            </div>
+
+            <div class="grid2">
+
+                <input
+                    id="itemRate"
+                    type="number"
+                    placeholder="Rate">
+
+                <select id="itemGST">
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18">18%</option>
+                </select>
+
+            </div>
+
+            <button id="addItemBtn">
+                Add Item
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Invoice Items</h3>
+
+            <table id="itemsTable">
+
+                <thead>
+
+                <tr>
+                    <th>S.No</th>
+                    <th>Description</th>
+                    <th>HSN</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
+
+        <div class="card totals">
+
+            <div>
+                Subtotal:
+                <span id="subtotal">0.00</span>
+            </div>
+
+            <div>
+                CGST:
+                <span id="cgst">0.00</span>
+            </div>
+
+            <div>
+                SGST:
+                <span id="sgst">0.00</span>
+            </div>
+
+            <div class="grand">
+                Total:
+                <span id="grandTotal">0.00</span>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button id="saveInvoiceBtn">
+                Save Invoice
+            </button>
+
+            <button id="printInvoiceBtn">
+                Print
+            </button>
+
+            <button id="pdfInvoiceBtn">
+                PDF
+            </button>
+
+            <button id="whatsappBtn">
+                WhatsApp
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Invoice History</h3>
+
+            <table id="historyTable">
+
+                <thead>
+
+                <tr>
+                    <th>Invoice</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div id="invoicePrintArea"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/invoice.js"></script>
+<script src="js/pdf.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
