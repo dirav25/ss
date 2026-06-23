@@ -331,189 +331,244 @@ function buildInvoiceObject() {
 
 function generateInvoiceHTML(invoice) {
 
-    const itemRows =
-        invoice.items.map((item, index) => {
+    const itemRows = invoice.items.map((item,index)=>{
 
-            const amount =
-                item.qty * item.rate;
+        const amount = item.qty * item.rate;
 
-            return `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${item.description}</td>
-                <td>${item.hsn}</td>
-                <td>${item.qty}</td>
-                <td>${item.rate.toFixed(2)}</td>
-                <td>${amount.toFixed(2)}</td>
-            </tr>
-            `;
-        }).join("");
+        return `
+        <tr>
+            <td>${index+1}</td>
+            <td>${item.description}</td>
+            <td>${item.hsn}</td>
+            <td>${item.qty}</td>
+            <td>₹${item.rate.toFixed(2)}</td>
+            <td>₹${amount.toFixed(2)}</td>
+        </tr>
+        `;
+    }).join("");
 
     return `
-    <div class="invoice-page">
 
-        <div class="invoice-header">
+<div class="invoice-page">
+
+    <div class="invoice-header">
+
+        <div>
 
             <div class="invoice-company">
                 S S TEXTILE
             </div>
 
-            <div class="invoice-title">
-                TAX INVOICE
+            <div>
+                GSTIN : 24BRXPM6996G1ZT
+            </div>
+
+            <div>
+                Plot No.296-2-3B,
+                GIDC Umbergaon,
+                Gujarat
             </div>
 
         </div>
 
-        <div class="invoice-section">
+        <div style="text-align:right">
 
-            <div class="invoice-row">
-
-                <div class="invoice-left">
-
-                    <strong>Billing Address</strong>
-
-                    <br><br>
-
-                    ${invoice.customerName}
-
-                    <br>
-
-                    ${invoice.customerAddress}
-
-                    <br>
-
-                    GST:
-                    ${invoice.customerGST || "N/A"}
-
-                </div>
-
-                <div class="invoice-right">
-
-                    <strong>Invoice No:</strong>
-                    ${invoice.invoiceNo}
-
-                    <br><br>
-
-                    <strong>Date:</strong>
-                    ${invoice.date}
-
-                    <br><br>
-
-                    <strong>Payment:</strong>
-                    ${invoice.paymentTerms}
-
-                    <br><br>
-
-                    <strong>Delivery:</strong>
-                    ${invoice.deliveryType}
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <table class="invoice-table">
-
-            <thead>
-
-            <tr>
-                <th>S.No</th>
-                <th>Description</th>
-                <th>HSN</th>
-                <th>Qty</th>
-                <th>Rate</th>
-                <th>Amount</th>
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${itemRows}
-
-            </tbody>
-
-        </table>
-
-        <div class="invoice-summary">
+            <h2>TAX INVOICE</h2>
 
             <p>
-                Subtotal :
-                ${invoice.subtotal.toFixed(2)}
+                Invoice No:
+                ${invoice.invoiceNo}
             </p>
 
             <p>
-                CGST :
-                ${invoice.cgst.toFixed(2)}
+                Date:
+                ${invoice.date}
             </p>
-
-            <p>
-                SGST :
-                ${invoice.sgst.toFixed(2)}
-            </p>
-
-            <h3>
-                Total :
-                ${invoice.total.toFixed(2)}
-            </h3>
-
-            <br>
-
-            <strong>
-                Amount In Words:
-            </strong>
-
-            ${numberToWords(invoice.total)}
 
         </div>
 
-        <div class="invoice-bank">
+    </div>
 
-            <strong>Bank Details</strong>
+    <div class="invoice-section">
 
-            <br><br>
+        <div class="invoice-row">
 
-            HDFC Bank
+            <div class="invoice-left">
 
-            <br>
-
-            A/C No:
-            50200087857010
-
-            <br>
-
-            IFSC:
-            HDFC000095
-
-        </div>
-
-        <div class="invoice-footer">
-
-            <div class="invoice-footer-left">
-
-                Declaration:
+                <strong>BILL TO</strong>
 
                 <br><br>
 
-                We declare that this invoice
-                shows actual value of goods
-                and services supplied.
+                ${invoice.customerName}
+
+                <br>
+
+                ${invoice.customerAddress}
+
+                <br>
+
+                Mobile :
+                ${invoice.customerMobile}
+
+                <br>
+
+                GST :
+                ${invoice.customerGST || "N/A"}
 
             </div>
 
-            <div class="invoice-footer-right">
+            <div class="invoice-right">
 
-                FOR S S TEXTILE
+                <strong>Payment Terms</strong>
 
-                <div class="sign-space"></div>
+                <br>
 
-                Authorized Signatory
+                ${invoice.paymentTerms}
+
+                <br><br>
+
+                <strong>Delivery Type</strong>
+
+                <br>
+
+                ${invoice.deliveryType}
 
             </div>
 
         </div>
 
     </div>
-    `;
+
+    <table class="invoice-table">
+
+        <thead>
+
+            <tr>
+
+                <th>S.No</th>
+                <th>Description</th>
+                <th>HSN</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Amount</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            ${itemRows}
+
+        </tbody>
+
+    </table>
+
+    <div class="invoice-summary">
+
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:10px;
+        ">
+            <span>Subtotal</span>
+            <span>₹${invoice.subtotal.toFixed(2)}</span>
+        </div>
+
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:10px;
+        ">
+            <span>CGST</span>
+            <span>₹${invoice.cgst.toFixed(2)}</span>
+        </div>
+
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:10px;
+        ">
+            <span>SGST</span>
+            <span>₹${invoice.sgst.toFixed(2)}</span>
+        </div>
+
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        font-size:22px;
+        font-weight:bold;
+        border-top:2px solid #000;
+        padding-top:10px;
+        ">
+            <span>Total</span>
+            <span>₹${invoice.total.toFixed(2)}</span>
+        </div>
+
+        <br>
+
+        <strong>
+            Amount In Words:
+        </strong>
+
+        <br>
+
+        ${numberToWords(invoice.total)}
+
+    </div>
+
+    <div class="invoice-bank">
+
+        <h3>Bank Details</h3>
+
+        <br>
+
+        Bank :
+        HDFC Bank
+
+        <br>
+
+        A/C :
+        50200087857010
+
+        <br>
+
+        IFSC :
+        HDFC000095
+
+    </div>
+
+    <div class="invoice-footer">
+
+        <div class="invoice-footer-left">
+
+            <strong>Declaration</strong>
+
+            <br><br>
+
+            We declare that this invoice
+            reflects the actual value of
+            goods supplied and all
+            information mentioned above
+            is true and correct.
+
+        </div>
+
+        <div class="invoice-footer-right">
+
+            <strong>
+                FOR S S TEXTILE
+            </strong>
+
+            <div class="sign-space"></div>
+
+            Authorized Signatory
+
+        </div>
+
+    </div>
+
+</div>
+
+`;
 }
